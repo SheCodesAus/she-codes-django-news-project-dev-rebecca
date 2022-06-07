@@ -13,8 +13,3 @@ class CreateAccountView(CreateView):
   success_url = reverse_lazy('login')
   template_name = 'users/createAccount.html'
 
-<<<<<<< Updated upstream
-class ViewAccount(generic.TemplateView):
-  template_name = 'users/account.html'
-=======
->>>>>>> Stashed changes
