@@ -14,8 +14,21 @@ class IndexView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['latest_stories'] = NewsStory.objects.all()[:4]
-        context['all_stories'] = NewsStory.objects.all()
+        context['latest_stories'] = NewsStory.objects.all().order_by('pub_date')[:4]
+        context['all_stories'] = NewsStory.objects.all().order_by('pub_date')
+        return context
+
+class ViewRebecca(generic.TemplateView):
+    template_name = 'news/rebecca.html'
+
+    def get_queryset(self):
+        '''Return all news stories.'''
+        return NewsStory.objects.all().order_by('pub_date')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['latest_stories'] = NewsStory.objects.all().filter(author=1).order_by('pub_date')[:4]
+        context['all_stories'] = NewsStory.objects.all().filter(author=1).order_by('pub_date')
         return context
 
 class StoryView(generic.DetailView):
